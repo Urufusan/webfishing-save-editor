@@ -6,6 +6,7 @@
   import type { GodotVariant } from "./lib/types";
 
   let save: WebfishingSave | null;
+  const year = new Date().getUTCFullYear();
 
   async function uploadSave(e: Event) {
     const target = e.target as HTMLInputElement;
@@ -35,18 +36,25 @@
 <hgroup>
   <h1>WEBFISHING Save Editor</h1>
   <p>
-    <a href="https://github.com/NotNite/webfishing-save-editor">GitHub</a> - by
+    By <a href="https://starlight-symposium.neocities.org/">Starlight</a> [<a
+      class="font-mono"
+      href="https://github.com/enchanted-sword/webfishing-save-editor">GitHub</a
+    >]
+  </p>
+
+  <small>
+    Forked from the <a href="https://github.com/NotNite/webfishing-save-editor">original</a> by
     <a href="https://notnite.com/">NotNite</a>
     and <a href="https://hl2.sh/">Jay</a>
-  </p>
+  </small>
 </hgroup>
 
 <p>
-  Your save is located at <code>%AppData%\Godot\app_userdata\webfishing_2_newver\webfishing_save_slot_0.sav</code>. Back
-  up your save before editing it!
+  Your saves are located at <code>%AppData%\Godot\app_userdata\webfishing_2_newver\webfishing_save_slot_#.sav</code>.
+  It's a good idea to back up your saves before editing them!
 </p>
 
-<div class="fileUpload" role="group">
+<div role="group">
   <input type="file" name="file" accept=".sav" on:change={uploadSave} />
 
   {#if save}
@@ -55,7 +63,9 @@
 </div>
 
 {#if save}
-  <div id="editor">
+  <div id="editor" class="bg-cream rounded-2xl text-ui font-display px-4 py-1 w-full">
     <Editor {save} />
   </div>
 {/if}
+
+<footer><h2 class="text-center">© Starlight {year}</h2></footer>

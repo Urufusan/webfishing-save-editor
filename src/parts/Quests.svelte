@@ -2,7 +2,6 @@
   import type { WebfishingSave } from "../game/types";
   import QuestItem from "../components/QuestItem.svelte";
   import Section from "../components/Section.svelte";
-  import type { GodotCustomDictionary, GodotCustomArray, GodotString, GodotInt, GodotReal, GodotBool } from "../lib/types";
 
   export let save: WebfishingSave;
 
@@ -32,7 +31,7 @@
       hidden: quest?.hidden?.value || false,
       goal_amt: quest?.goal_amt?.value || 0,
       goal_array: quest?.goal_array?.value || [],
-      flags: Array.isArray(quest?.flags?.value) ? quest.flags.value.map(flag => Number(flag.value)) : []
+      flags: Array.isArray(quest?.flags?.value) ? quest.flags.value.map((flag) => Number(flag.value)) : []
     };
   };
 
@@ -46,22 +45,14 @@
 </script>
 
 <Section title="Quests">
-  <div class="questsContainer">
+  <div class="flex flex-col gap-4 py-2 w-full">
     {#each questKeys as questKey}
       <!-- Explicitly cast each quest entry to match the expected type -->
-      <Section title={getQuestTitle(questKey)}>
-        <QuestItem
-          updateProgress={(progress) => updateQuestProgress(questKey, progress)}
-          quest={getQuest(questKey)}
-          questId={questKey}
-        />
-      </Section>
+      <QuestItem
+        updateProgress={(progress) => updateQuestProgress(questKey, progress)}
+        quest={getQuest(questKey)}
+        questId={questKey}
+      />
     {/each}
   </div>
 </Section>
-
-<style>
-  .questsContainer {
-    margin-left: 1rem;
-  }
-</style>

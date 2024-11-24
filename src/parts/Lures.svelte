@@ -33,31 +33,47 @@
 </script>
 
 <Section title="Baits & lures">
-  {#each Object.keys(baits) as bait, i}
-    <div>
-      <input
-        type="checkbox"
-        id={`bait-${bait}`}
-        checked={save.value.bait_unlocked.value.find((l) => l.value === bait) != null}
-        on:change={(e) => setBaitWrapped(bait, e)}
-      />
-      <img src={`${iconsDir}/${baits[bait].icon}`} alt={baits[bait].name} class="icon" />
-      <label for={`bait-${bait}`}>{baits[bait].name}</label>
-    </div>
-  {/each}
+  <div class="rounded-2xl p-2 flex flex-col gap-2 flex-grow mt-12 bg-cream relative">
+    <div class="absolute -top-12 left-0 text-accent text-3xl p-2 pb-4 w-40 bg-cream rounded-t-2xl">Baits</div>
+    {#each Object.keys(baits) as bait, i}
+      <div
+        class="text-cream bg-accent w-full rounded-2xl flex flex-row gap-2 items-center px-4 relative z-10 hover:bg-accent-highlight"
+      >
+        <img src={`${iconsDir}/${baits[bait].icon}`} alt={baits[bait].name} class="icon" />
+        <h2>{baits[bait].name}</h2>
+        <span class="flex-grow"></span>
+        <label for={`bait-${bait}`}>Unlocked</label>
+        <input
+          type="checkbox"
+          id={`bait-${bait}`}
+          checked={save.value.bait_unlocked.value.find((l) => l.value === bait) != null}
+          on:change={(e) => setBaitWrapped(bait, e)}
+        />
+      </div>
+    {/each}
+  </div>
 
-  {#each Object.keys(lures) as lure, i}
-    <div>
-      <input
-        type="checkbox"
-        id={`lure-${lure}`}
-        checked={save.value.lure_unlocked.value.find((l) => l.value === lure) != null}
-        on:change={(e) => setLureWrapped(lure, e)}
-      />
-      <img src={`${iconsDir}/${lures[lure].icon}`} alt={lures[lure].name} class="icon" />
-      <label for={`lure-${lure}`}>{lures[lure].name}</label>
+  <div class="rounded-2xl p-2 flex-grow mt-12 bg-cream relative">
+    <div class="absolute -top-12 left-0 text-accent text-3xl p-2 pb-4 w-40 bg-cream rounded-t-2xl">Lures</div>
+    <div class="overflow-auto max-h-[328px] flex flex-col gap-2 scroll-accent relative z-10">
+      {#each Object.keys(lures) as lure, i}
+        <div
+          class="text-cream bg-accent w-full rounded-2xl flex flex-row gap-2 items-center px-4 hover:bg-accent-highlight"
+        >
+          <img src={`${iconsDir}/${lures[lure].icon}`} alt={lures[lure].name} class="icon" />
+          <h2>{lures[lure].name}</h2>
+          <span class="flex-grow"></span>
+          <label for={`lure-${lure}`}>Unlocked</label>
+          <input
+            type="checkbox"
+            id={`lure-${lure}`}
+            checked={save.value.lure_unlocked.value.find((l) => l.value === lure) != null}
+            on:change={(e) => setLureWrapped(lure, e)}
+          />
+        </div>
+      {/each}
     </div>
-  {/each}
+  </div>
 </Section>
 
 <style>

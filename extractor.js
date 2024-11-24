@@ -15,7 +15,7 @@ function findFiles(dir) {
   return ret;
 }
 
-const dir = "D:/code/misc/webfishing/webfishing-decomp";
+const dir = "E:/Code/webfishing-1.10";
 const out = "./src/game";
 const iconsDir = "./public/icons";
 if (!fs.existsSync(out)) fs.mkdirSync(out);
@@ -56,9 +56,9 @@ for (const file of files) {
   let iconPath =
     iconId != null
       ? content
-          .split("\n")
-          .find((line) => line.includes(`id=${iconId.trim()}`))
-          .match(/path="([^"]+)"/)?.[1]
+        .split("\n")
+        .find((line) => line.includes(`id=${iconId.trim()}`))
+        .match(/path="([^"]+)"/)?.[1]
       : null;
   let iconFileName = null;
 
