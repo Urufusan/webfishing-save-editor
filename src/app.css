@@ -71,6 +71,16 @@
     scrollbar-color: #5a755a #101c31;
     padding-right: 0.5rem;
   }
+
+  /* bit hacky but svelte is annoying about this */
+  [data-selected="alien"] [data-section="alien"],
+  [data-selected="lake"] [data-section="lake"],
+  [data-selected="ocean"] [data-section="ocean"],
+  [data-selected="rain"] [data-section="rain"],
+  [data-selected="water_trash"] [data-section="water_trash"],
+  [data-selected="void"] [data-section="void"] {
+    display: grid;
+  }
 }
 
 @layer utilities {

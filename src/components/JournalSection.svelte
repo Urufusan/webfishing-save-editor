@@ -12,6 +12,8 @@
   const keys = Object.keys(section.value).filter((key) => !key.startsWith("_") && items[key] != null);
 </script>
 
-{#each keys as key}
-  <JournalItem id={key} item={section.value[key].value} />
-{/each}
+<div data-section={sectionName} class="hidden grid-cols-4 gap-4">
+  {#each keys as key}
+    <JournalItem id={key} item={section.value[key].value} />
+  {/each}
+</div>
