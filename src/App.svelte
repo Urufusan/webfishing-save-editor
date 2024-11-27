@@ -63,7 +63,7 @@
 </div>
 
 {#if save}
-  <div id="editor" class="bg-cream rounded-2xl text-ui font-display px-4 py-1 w-full">
+  <div id="editor" class="bg-cream rounded-2xl text-ui font-display px-4 py-1 w-full cursor-default">
     <Editor {save} />
   </div>
 {/if}

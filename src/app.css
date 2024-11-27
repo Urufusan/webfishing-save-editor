@@ -57,8 +57,12 @@
     @apply rounded-md px-1.5 py-0.5 ring-2 ring-inset ring-white/10 bg-white/10;
   }
 
+  button {
+    @apply cursor-pointer;
+  }
+
   input[type="number"] {
-    @apply rounded-lg text-xl ml-2 pl-2 text-ui;
+    @apply rounded-lg text-xl ml-2 pl-2 text-ui cursor-text;
   }
 
   :focus-visible {

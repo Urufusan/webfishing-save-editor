@@ -2,6 +2,11 @@
 export default {
   content: ['./index.html', './src/**/*.{html,js,svelte,ts}'],
   theme: {
+    cursor: {
+      default: 'url("/cursors/webfishing_arrow.cur"), default',
+      pointer: 'url("/cursors/webfishing_link.cur"), pointer',
+      text: 'url("/cursors/webfishing_beam.cur"), text',
+    },
     fontFamily: {
       sans: ['Rubik', 'sans-serif'],
       display: ['Accidental Presidency', 'sans-serif'],
