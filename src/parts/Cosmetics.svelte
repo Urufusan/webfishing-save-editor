@@ -26,9 +26,8 @@
     "title_imnormal",
     "title_bipedalanimaldrawer",
     "pcolor_west",
-    "title_lamedev",
     "title_lamedev_real",
-    "scolor_midnight_special"
+    "title_cadaverdog"
   ];
 
   const filteredCosmetics = Object.fromEntries(
