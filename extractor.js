@@ -72,6 +72,12 @@ for (const file of files) {
     }
   }
 
+  let color = null;
+  if (type === "cosmetic") {
+    const [r, g, b, a] = content.match(/main_color = Color\( ([\d\.]+, [\d\.]+, [\d\.]+, [\d\.]+) \)/)?.[1].replace(/\s/g, '').split(',').map(c => Math.round(255 * c).toString(16).padStart(2, '0'));
+    color = '#' + r + g + b;
+  }
+
   if (!cats[type].includes(category)) {
     cats[type].push(category);
   }
@@ -83,7 +89,8 @@ for (const file of files) {
   subcats[category][id] = {
     name,
     category,
-    icon: iconFileName
+    icon: iconFileName,
+    color
   };
 }
 

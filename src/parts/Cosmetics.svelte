@@ -4,6 +4,7 @@
   import { cosmetics } from "../game/things";
   import { string } from "../lib/godot";
   import { iconsDir } from "../lib/site";
+  import type { AriaAttributes, DOMAttributes } from "svelte/elements";
 
   export let save: WebfishingSave;
 
@@ -33,6 +34,10 @@
   const filteredCosmetics = Object.fromEntries(
     Object.entries(cosmetics).filter(([id, cosmetic]) => !blockedCosmetics.includes(id))
   );
+
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    blendmode: string;
+  }
 </script>
 
 <Section title="Cosmetics">
@@ -44,7 +49,13 @@
         checked={save.value.cosmetics_unlocked.value.find((i) => i.value === id) != null}
         on:change={(e) => setCosmeticWrapped(id, e)}
       />
-      <img src={`${iconsDir}/${cosmetic.icon}`} alt={cosmetic.name} class="icon" />
+      <img
+        src={`${iconsDir}/${cosmetic.icon}`}
+        alt={cosmetic.name}
+        class="icon"
+        color={cosmetic.color}
+        blendmode="multiply"
+      />
       <label for={`cosmetic-${id}`}>{cosmetic.name}</label>
     </div>
   {/each}
