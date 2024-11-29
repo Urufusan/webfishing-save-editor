@@ -10,16 +10,21 @@ const parseColor = (color: string | null) => {
   if (color.includes("rgb")) {
     let match,
       regex = /\d/g;
-    while (([match] = regex.exec(color)) !== null) {
-      if (typeof r === "undefined") r = +match;
-      else if (typeof g === "undefined") g = +match;
-      else if (typeof b === "undefined") r = +match;
+    while ((match = regex.exec(color)) !== null) {
+      if (typeof r === "undefined") r = +match[0];
+      else if (typeof g === "undefined") g = +match[0];
+      else if (typeof b === "undefined") r = +match[0];
     }
   } else {
     const hex: string = color
       .replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => "#" + r + r + g + g + b + b)
       .substring(1);
-    [r, g, b] = hex.match(/.{2}/g)?.map((x) => parseInt(x, 16));
+    const rgbArray = hex.match(/.{2}/g)?.map((x) => parseInt(x, 16));
+    if (rgbArray) {
+      r = rgbArray[0];
+      g = rgbArray[1];
+      b = rgbArray[2];
+    }
   }
   let colorObj = { r, g, b } as rgbColor;
   return colorObj;
@@ -252,6 +257,7 @@ function softLight(data: Uint8ClampedArray, color: rgbColor) {
   return data;
 }
 
+// This is stupid but I have never had to write TS modules before
 interface blendFunctionInterface {
   greyscale: Function;
   screen: Function;
