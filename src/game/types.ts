@@ -154,6 +154,7 @@ export type Thing = {
   name: string;
   category: `${Category}`;
   icon: string | null;
+  color: string | null;
 };
 
 export type Things = Record<string, Thing>;
