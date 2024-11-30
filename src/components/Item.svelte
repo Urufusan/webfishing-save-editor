@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { iconsDir } from "../lib/site";
   import { items } from "../game/things";
+  import { isNotFish } from "../game/util";
   import type { InventoryItem, Things } from "../game/types";
   import type { GodotCustomDictionary } from "../lib/types";
 
@@ -18,9 +19,6 @@
 
     categories[item.category][id] = item;
   });
-
-  const isNotFish = (id: string) =>
-    !((id.startsWith("fish_") && !id.startsWith("fish_trap")) || id === "luck_moneybag");
 </script>
 
 <div

@@ -51,11 +51,12 @@
   <img src={`${iconsDir}/${item.icon}`} alt={item.name} class="max-w-12" />
   <h2>{item.name}</h2>
   <span class="flex-grow"></span>
-  <label for={`${type}-${key}`}>Unlocked</label>
+  <label class="cursor-pointer" for={`${type}-${key}`}>Unlocked</label>
   {#if type === "lure"}
     <input
       type="checkbox"
       id={`lure-${key}`}
+      class="cursor-pointer"
       checked={save.value.lure_unlocked.value.find((l) => l.value === key) != null}
       on:change={(e) => setLureWrapped(key, e)}
     />
@@ -64,6 +65,7 @@
     <input
       type="checkbox"
       id={`bait-${key}`}
+      class="cursor-pointer"
       checked={save.value.bait_unlocked.value.find((l) => l.value === key) != null}
       on:change={(e) => setBaitWrapped(key, e)}
     />
