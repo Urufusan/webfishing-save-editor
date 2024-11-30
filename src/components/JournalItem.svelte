@@ -9,19 +9,19 @@
 
   item.record.value = +item.record.value.toFixed(2); // resolves floating point errors
 
-  const rarities = ["Normal", "Shining", "Glistening", "Opulent", "Radiant", "Alpha"];
-  const rarityArray = [0, 1, 2, 3, 4, 5].map((r) => item.quality.value.find((q) => q.value === r) != null);
+  const qualities = ["Normal", "Shining", "Glistening", "Opulent", "Radiant", "Alpha"];
+  const qualityArray = [0, 1, 2, 3, 4, 5].map((r) => item.quality.value.find((q) => q.value === r) != null);
 
-  function setRarity(rarity: number) {
+  function setQuality(rarity: number) {
     if (item.quality.value.find((q) => q.value === rarity)) {
       item.quality.value = item.quality.value.filter((q) => q.value !== rarity);
-      rarityArray[rarity] = false;
+      qualityArray[rarity] = false;
     } else {
       item.quality.value.push(int(rarity));
-      rarityArray[rarity] = true;
+      qualityArray[rarity] = true;
     }
 
-    seen = rarityArray.some((r) => r);
+    seen = qualityArray.some((r) => r);
   }
 
   function updateCount(event: Event) {
@@ -29,7 +29,7 @@
     item.count.value = parseInt(target.value, 10) || 0; // Ensure count is a valid number
   }
 
-  let seen = rarityArray.some((r) => r);
+  let seen = qualityArray.some((r) => r);
 </script>
 
 <div class="bg-cream rounded-2xl p-4 flex flex-col {seen ? '' : 'brightness-75'}">
@@ -42,12 +42,12 @@
         <button
           class="h-12 w-12 rounded-full aria-[checked=false]:brightness-50 data-[rarity=0]:bg-normal data-[rarity=1]:bg-shining data-[rarity=2]:bg-glistening data-[rarity=3]:bg-opulent data-[rarity=4]:bg-radiant data-[rarity=5]:bg-alpha"
           id={`journalItem-${id}-quality-${rarity}`}
-          title={rarities[rarity]}
+          title={qualities[rarity]}
           data-rarity={rarity}
           role="switch"
-          aria-checked={rarityArray[rarity]}
-          aria-label={`Toggle rarity ${rarities[rarity]}`}
-          on:click={(event) => setRarity(rarity)}
+          aria-checked={qualityArray[rarity]}
+          aria-label={`Toggle rarity ${qualities[rarity]}`}
+          on:click={(event) => setQuality(rarity)}
         />
       </div>
     {/each}
