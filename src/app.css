@@ -64,9 +64,8 @@
   input[type="number"] {
     @apply rounded-lg text-xl ml-2 pl-2 text-ui cursor-text;
   }
-
-  :focus-visible {
-    @apply outline-2 outline-opulent;
+  input:focus-visible {
+    @apply outline outline-2 outline-accent;
   }
 }
 

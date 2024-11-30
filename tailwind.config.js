@@ -19,6 +19,7 @@ export default {
         ui: '#5e3a18',
         accent: '#5a755a',
         'accent-highlight': '#9c914a',
+        cancel: "#a90038",
         normal: '#d5aa73',
         shining: '#d5aa73',
         glistening: '#a49d9c',

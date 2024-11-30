@@ -46,13 +46,12 @@
 </script>
 
 <Section title="Inventory">
-  {#each save.value.inventory.value as item, i (item)}
-    <Item {i} {item} on:explode={() => removeItem(item.value.ref.value)} />
-
-    {#if i < save.value.inventory.value.length - 1}
-      <hr />
-    {/if}
-  {/each}
-
-  <button on:click={addItem}>Add item</button>
+  <div class="grid grid-cols-6 gap-4">
+    {#each save.value.inventory.value as item, i (item)}
+      <Item {i} {item} on:explode={() => removeItem(item.value.ref.value)} />
+    {/each}
+  </div>
+  <button class="m-auto bg-accent hover:bg-accent-highlight rounded-lg py-4 px-2 text-3xl text-cream" on:click={addItem}
+    >Add item</button
+  >
 </Section>
