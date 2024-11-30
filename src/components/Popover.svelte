@@ -2,13 +2,13 @@
   let className = "";
   export { className as class };
 
-  let clientX: Number, clientY: Number, state: string;
+  let clientX: Number, clientY: Number, state: boolean;
 
   function showPopover() {
-    state = "show";
+    state = true;
   }
   function hidePopover() {
-    state = "hide";
+    state = false;
   }
 
   function updatePosition(event: MouseEvent) {
@@ -26,12 +26,7 @@
   on:focus={null}
   on:blur={null}
 >
-  <div
-    role="tooltip"
-    class="fixed z-20 data-[state=hide]:hidden"
-    data-state={state}
-    style={`top: ${clientY}px; left: ${clientX}px`}
-  >
+  <div role="tooltip" class="fixed z-20 {state ? '' : 'hidden'}" style={`top: ${clientY}px; left: ${clientX}px`}>
     <slot name="popover" />
   </div>
 
