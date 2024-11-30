@@ -78,6 +78,8 @@ for (const file of files) {
     color = '#' + r + g + b;
   }
 
+  const max_stacks = +content.match(/max_stacks = ([\d]+)/)?.[1] || null;
+
   if (!cats[type].includes(category)) {
     cats[type].push(category);
   }
@@ -90,7 +92,8 @@ for (const file of files) {
     name,
     category,
     icon: iconFileName,
-    color
+    color,
+    max_stacks
   };
 }
 

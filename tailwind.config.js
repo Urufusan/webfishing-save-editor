@@ -6,6 +6,7 @@ export default {
       default: 'url("/cursors/webfishing_arrow.cur"), default',
       pointer: 'url("/cursors/webfishing_link.cur"), pointer',
       text: 'url("/cursors/webfishing_beam.cur"), text',
+      'not-allowed': 'url("/cursors/webfishing_unavailable.cur"), not-allowed',
     },
     fontFamily: {
       sans: ['Rubik', 'sans-serif'],
@@ -26,9 +27,6 @@ export default {
         opulent: '#008583',
         radiant: '#e69d00',
         alpha: '#cd0462'
-      },
-      spacing: {
-        '1/7': '14.2857%'
       }
     },
   },

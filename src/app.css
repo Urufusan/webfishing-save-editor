@@ -53,10 +53,6 @@
     @apply text-opulent;
   }
 
-  code {
-    @apply rounded-md px-1.5 py-0.5 ring-2 ring-inset ring-white/10 bg-white/10;
-  }
-
   button {
     @apply cursor-pointer;
   }
@@ -66,6 +62,10 @@
   }
   input:focus-visible {
     @apply outline outline-2 outline-accent;
+  }
+
+  select {
+    @apply cursor-pointer;
   }
 }
 
@@ -100,5 +100,9 @@
 
   .rendering-pixelated {
     image-rendering: pixelated;
+  }
+
+  .bg\/40 {
+    --tw-bg-opacity: 0.4;
   }
 }

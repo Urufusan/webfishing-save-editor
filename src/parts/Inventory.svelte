@@ -13,7 +13,8 @@
       quality: int(0),
       ref: int(randi()),
       size: real(1),
-      tags: array([])
+      tags: array([]),
+      count: int(1)
     };
     save.value.inventory.value.push(customDict(item));
     save = save;

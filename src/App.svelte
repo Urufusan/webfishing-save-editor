@@ -50,8 +50,9 @@
 </hgroup>
 
 <p>
-  Your saves are located at <code>%AppData%\Godot\app_userdata\webfishing_2_newver\webfishing_save_slot_#.sav</code>.
-  It's a good idea to back up your saves before editing them!
+  Your saves are located at <code class="rounded-md px-1.5 py-0.5 ring-2 ring-inset ring-white/10 bg-white/10"
+    >%AppData%\Godot\app_userdata\webfishing_2_newver\webfishing_save_slot_#.sav</code
+  >. It's a good idea to back up your saves before editing them!
 </p>
 
 <div role="group">
