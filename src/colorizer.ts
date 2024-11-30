@@ -276,7 +276,7 @@ const blendFunctions: Record<string, Function> = {
 
 function paintSelf(Event: Event) {
   const image = Event.target as HTMLImageElement;
-  if (image.dataset.painted) return;
+  if (image.dataset.painted || image.src.includes(".gif")) return;
 
   const { width, height } = image;
 

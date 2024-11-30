@@ -70,7 +70,7 @@ for (const file of files) {
     } else {
       fs.copyFileSync(path.join(dir, iconPath), path.join(iconsDir, iconFileName));
     }
-  }
+  } else if (id === "eye_wobble") iconFileName = "eye_wobble.gif";
 
   let color = null;
   if (type === "cosmetic") {
