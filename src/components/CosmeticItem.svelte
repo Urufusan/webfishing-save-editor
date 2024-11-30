@@ -26,7 +26,7 @@
 </script>
 
 <div
-  class="rounded-2xl bg-cream text-ui p-2 flex flex-col items-center gap-2 justify-between {unlocked
+  class="rounded-2xl bg-cream text-ui p-2 flex flex-col items-center gap-2 justify-between hover:outline hover:outline-8 hover:outline-accent {unlocked
     ? ''
     : 'brightness-75'}"
 >
