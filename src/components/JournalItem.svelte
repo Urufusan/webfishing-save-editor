@@ -20,15 +20,19 @@
       item.quality.value.push(int(rarity));
       rarityArray[rarity] = true;
     }
+
+    seen = rarityArray.some((r) => r);
   }
 
   function updateCount(event: Event) {
     const target = event.target as HTMLInputElement;
     item.count.value = parseInt(target.value, 10) || 0; // Ensure count is a valid number
   }
+
+  let seen = rarityArray.some((r) => r);
 </script>
 
-<div class="bg-cream rounded-2xl p-4 flex flex-col">
+<div class="bg-cream rounded-2xl p-4 flex flex-col {seen ? '' : 'brightness-75'}">
   <h2>{items[id]?.name || id}</h2>
 
   <!-- Rarity selection -->

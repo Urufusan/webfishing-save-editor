@@ -1,24 +1,11 @@
 <script lang="ts">
-  import type { WebfishingSave } from "../game/types";
+  import type { Things, WebfishingSave } from "../game/types";
   import Section from "../components/Section.svelte";
   import { cosmetics } from "../game/things";
-  import { string } from "../lib/godot";
-  import { iconsDir } from "../lib/site";
-  import type { AriaAttributes, DOMAttributes } from "svelte/elements";
+  import Tabs from "../components/Tabs.svelte";
+  import CosmeticSection from "../components/CosmeticSection.svelte";
 
   export let save: WebfishingSave;
-
-  function setCosmetic(id: string, value: boolean) {
-    if (save.value.cosmetics_unlocked.value.find((i) => i.value === id)) {
-      save.value.cosmetics_unlocked.value = save.value.cosmetics_unlocked.value.filter((i) => i.value !== id);
-    } else {
-      save.value.cosmetics_unlocked.value.push(string(id));
-    }
-  }
-
-  function setCosmeticWrapped(id: string, event: Event) {
-    setCosmetic(id, (event.target as HTMLInputElement).checked);
-  }
 
   // These are cosmetics the developer gave to their friends with specific Steam IDs
   // These mean something to the people who have them - don't be an asshole
@@ -31,38 +18,65 @@
     "title_cadaverdog"
   ];
 
-  const filteredCosmetics = Object.fromEntries(
-    Object.entries(cosmetics).filter(([id, cosmetic]) => !blockedCosmetics.includes(id))
-  );
+  const filteredCosmetics = Object.entries(cosmetics).filter(([id, cosmetic]) => !blockedCosmetics.includes(id));
+  const cosmeticSections: Record<string, Things> = {
+    species: {},
+    pattern: {},
+    primary_color: {},
+    secondary_color: {},
+    tail: {},
+    eye: {},
+    nose: {},
+    mouth: {},
+    hat: {},
+    undershirt: {},
+    overshirt: {},
+    legs: {},
+    accessory: {},
+    title: {},
+    bobber: {}
+  };
 
-  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    blendmode: string;
-  }
+  filteredCosmetics.forEach(([id, cosmetic]) => {
+    cosmeticSections[cosmetic.category][id] = cosmetic;
+  });
+
+  const structuredCosmetics: Record<string, Record<string, Things>> = {
+    body: {
+      species: cosmeticSections.species,
+      pattern: cosmeticSections.pattern,
+      "primary color": cosmeticSections.primary_color,
+      "secondary color": cosmeticSections.secondary_color,
+      tail: cosmeticSections.tail
+    },
+    face: {
+      eyes: cosmeticSections.eye,
+      nose: cosmeticSections.nose,
+      mouth: cosmeticSections.mouth
+    },
+    clothes: {
+      hat: cosmeticSections.hat,
+      undershirt: cosmeticSections.undershirt,
+      overshirt: cosmeticSections.overshirt,
+      legs: cosmeticSections.legs,
+      "accessories [max 4]": cosmeticSections.accessory
+    },
+    misc: {
+      title: cosmeticSections.title,
+      bobber: cosmeticSections.bobber
+    }
+  };
+
+  const sections = Object.keys(structuredCosmetics);
 </script>
 
 <Section title="Cosmetics">
-  {#each Object.entries(filteredCosmetics) as [id, cosmetic]}
-    <div>
-      <input
-        type="checkbox"
-        id={`cosmetic-${id}`}
-        checked={save.value.cosmetics_unlocked.value.find((i) => i.value === id) != null}
-        on:change={(e) => setCosmeticWrapped(id, e)}
-      />
-      <img
-        src={`${iconsDir}/${cosmetic.icon}`}
-        alt={cosmetic.name}
-        class="icon"
-        color={cosmetic.color}
-        blendmode="multiply"
-      />
-      <label for={`cosmetic-${id}`}>{cosmetic.name}</label>
+  <div data-selected="body" class="group bg-cream flex flex-col gap-8 rounded-2xl -my-2 p-4 w-full">
+    <Tabs {sections} sectionNames={null} />
+    <div class="bg-content rounded-2xl p-4 h-[800px] overflow-auto scroll-accent">
+      {#each Object.entries(structuredCosmetics) as [categoryName, categoryValues]}
+        <CosmeticSection {categoryName} {categoryValues} {save} />
+      {/each}
     </div>
-  {/each}
+  </div>
 </Section>
-
-<style>
-  .icon {
-    max-width: 3rem;
-  }
-</style>

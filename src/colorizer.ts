@@ -257,25 +257,7 @@ function softLight(data: Uint8ClampedArray, color: rgbColor) {
   return data;
 }
 
-// This is stupid but I have never had to write TS modules before
-interface blendFunctionInterface {
-  greyscale: Function;
-  screen: Function;
-  lighten: Function;
-  darken: Function;
-  colorDodge: Function;
-  colorBurn: Function;
-  linearDodge: Function;
-  linearBurn: Function;
-  addition: Function;
-  subtract: Function;
-  multiply: Function;
-  divide: Function;
-  hardLight: Function;
-  softLight: Function;
-}
-
-const blendFunctions = {
+const blendFunctions: Record<string, Function> = {
   greyscale,
   screen,
   lighten,
@@ -289,11 +271,7 @@ const blendFunctions = {
   multiply,
   divide,
   hardLight,
-  softLight,
-
-  blend(data: Uint8ClampedArray, color: rgbColor, blendmode: keyof blendFunctionInterface) {
-    return this[blendmode](data, color);
-  }
+  softLight
 };
 
 function paintSelf(Event: Event) {
@@ -311,13 +289,13 @@ function paintSelf(Event: Event) {
     let data = imageData.data;
 
     const color = parseColor(image.getAttribute("color"));
-    const blendmode = image.getAttribute("blendmode") || "";
+    const blendmode = image.dataset.blendmode || "";
     const blendmodes = blendmode.split(" ");
 
     if (color && blendmodes.length) {
       blendmodes.map((mode) => {
         if (mode in blendFunctions) {
-          data = blendFunctions.blend(data, color, mode as keyof blendFunctionInterface);
+          data = blendFunctions[mode](data, color);
         }
       });
 

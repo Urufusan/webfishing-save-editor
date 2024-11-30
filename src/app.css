@@ -85,10 +85,21 @@
   [data-selected="void"] [data-section="void"] {
     display: grid;
   }
+
+  [data-selected="body"] [data-section="body"],
+  [data-selected="face"] [data-section="face"],
+  [data-selected="clothes"] [data-section="clothes"],
+  [data-selected="misc"] [data-section="misc"] {
+    display: flex;
+  }
 }
 
 @layer utilities {
   .font-display :is(label, summary) {
     @apply text-3xl;
+  }
+
+  .rendering-pixelated {
+    image-rendering: pixelated;
   }
 }

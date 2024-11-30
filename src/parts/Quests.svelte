@@ -2,6 +2,7 @@
   import type { WebfishingSave } from "../game/types";
   import QuestItem from "../components/QuestItem.svelte";
   import Section from "../components/Section.svelte";
+  import KnotSeparator from "../components/KnotSeparator.svelte";
 
   export let save: WebfishingSave;
 
@@ -46,6 +47,7 @@
 
 <Section title="Quests">
   <div class="flex flex-col gap-4 py-2 w-full">
+    <KnotSeparator />
     {#each questKeys as questKey}
       <!-- Explicitly cast each quest entry to match the expected type -->
       <QuestItem
