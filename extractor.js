@@ -15,7 +15,7 @@ function findFiles(dir) {
   return ret;
 }
 
-const dir = "D:/code/misc/webfishing/webfishing-decomp";
+const dir = "E:/Code/webfishing-1.10";
 const out = "./src/game";
 const iconsDir = "./public/icons";
 if (!fs.existsSync(out)) fs.mkdirSync(out);
@@ -56,9 +56,9 @@ for (const file of files) {
   let iconPath =
     iconId != null
       ? content
-          .split("\n")
-          .find((line) => line.includes(`id=${iconId.trim()}`))
-          .match(/path="([^"]+)"/)?.[1]
+        .split("\n")
+        .find((line) => line.includes(`id=${iconId.trim()}`))
+        .match(/path="([^"]+)"/)?.[1]
       : null;
   let iconFileName = null;
 
@@ -70,7 +70,15 @@ for (const file of files) {
     } else {
       fs.copyFileSync(path.join(dir, iconPath), path.join(iconsDir, iconFileName));
     }
+  } else if (id === "eye_wobble") iconFileName = "eye_wobble.gif";
+
+  let color = null;
+  if (type === "cosmetic") {
+    const [r, g, b, a] = content.match(/main_color = Color\( ([\d\.]+, [\d\.]+, [\d\.]+, [\d\.]+) \)/)?.[1].replace(/\s/g, '').split(',').map(c => Math.round(255 * c).toString(16).padStart(2, '0'));
+    color = '#' + r + g + b;
   }
+
+  const max_stacks = +content.match(/max_stacks = ([\d]+)/)?.[1] || null;
 
   if (!cats[type].includes(category)) {
     cats[type].push(category);
@@ -83,7 +91,9 @@ for (const file of files) {
   subcats[category][id] = {
     name,
     category,
-    icon: iconFileName
+    icon: iconFileName,
+    color,
+    max_stacks
   };
 }
 

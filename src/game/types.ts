@@ -15,6 +15,7 @@ export type InventoryItem = {
   quality: GodotInt;
   ref: GodotInt;
   size: GodotReal;
+  count: GodotInt | null;
   tags: GodotArray; // TODO
 };
 export type JournalItem = {
@@ -154,6 +155,8 @@ export type Thing = {
   name: string;
   category: `${Category}`;
   icon: string | null;
+  color: string | null;
+  max_stacks: number | null;
 };
 
 export type Things = Record<string, Thing>;

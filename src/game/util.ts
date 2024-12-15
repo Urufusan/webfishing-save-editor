@@ -11,3 +11,6 @@ export function dictWithoutSpecial<T>(obj: Record<string, T>): Record<string, T>
   }
   return result;
 }
+
+export const isNotFish = (id: string) =>
+  !((id.startsWith("fish_") && !id.startsWith("fish_trap")) || id.startsWith("wtrash_") || id === "luck_moneybag");

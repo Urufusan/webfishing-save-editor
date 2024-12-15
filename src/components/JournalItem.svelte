@@ -7,44 +7,53 @@
   export let id: string;
   export let item: JournalItem;
 
-  const rarities = ["Normal", "Shining", "Glistening", "Opulent", "Radiant", "Alpha"];
+  item.record.value = +item.record.value.toFixed(2); // resolves floating point errors
 
-  function setRarity(rarity: number) {
+  const qualities = ["Normal", "Shining", "Glistening", "Opulent", "Radiant", "Alpha"];
+  const qualityArray = [0, 1, 2, 3, 4, 5].map((r) => item.quality.value.find((q) => q.value === r) != null);
+
+  function setQuality(rarity: number) {
     if (item.quality.value.find((q) => q.value === rarity)) {
       item.quality.value = item.quality.value.filter((q) => q.value !== rarity);
+      qualityArray[rarity] = false;
     } else {
       item.quality.value.push(int(rarity));
+      qualityArray[rarity] = true;
     }
+
+    seen = qualityArray.some((r) => r);
   }
 
   function updateCount(event: Event) {
     const target = event.target as HTMLInputElement;
     item.count.value = parseInt(target.value, 10) || 0; // Ensure count is a valid number
   }
+
+  let seen = qualityArray.some((r) => r);
 </script>
 
-<fieldset class="grid journalItem">
-  <div class="journalItemName">
-    <img src={`${iconsDir}/${items[id].icon}`} alt={items[id].name} />
-    <span>{items[id]?.name || id}</span>
-  </div>
+<div class="bg-cream rounded-2xl p-4 flex flex-col {seen ? '' : 'brightness-75'}">
+  <h2>{items[id]?.name || id}</h2>
 
   <!-- Rarity selection -->
-  <div>
+  <div class="flex flex-row justify-between">
     {#each [0, 1, 2, 3, 4, 5] as rarity}
       <div>
-        <input
-          type="checkbox"
+        <button
+          class="h-12 w-12 rounded-full aria-[checked=false]:brightness-50 data-[rarity=0]:bg-normal data-[rarity=1]:bg-shining data-[rarity=2]:bg-glistening data-[rarity=3]:bg-opulent data-[rarity=4]:bg-radiant data-[rarity=5]:bg-alpha"
           id={`journalItem-${id}-quality-${rarity}`}
-          checked={item.quality.value.find((q) => q.value === rarity) != null}
-          on:change={() => setRarity(rarity)}
+          title={qualities[rarity]}
+          data-rarity={rarity}
+          role="switch"
+          aria-checked={qualityArray[rarity]}
+          aria-label={`Toggle rarity ${qualities[rarity]}`}
+          on:click={(event) => setQuality(rarity)}
         />
-        <label for={`journalItem-${id}-quality-${rarity}`}>
-          {rarities[rarity]}
-        </label>
       </div>
     {/each}
   </div>
+
+  <img class="m-auto w-auto aspect-square" src={`${iconsDir}/${items[id].icon}`} alt={items[id].name} />
 
   <!-- Record display -->
   <div>
@@ -55,30 +64,6 @@
   <!-- Count editing -->
   <div>
     <label for={`journalItem-${id}-count`}>Amount Caught</label>
-    <input
-      type="number"
-      id={`journalItem-${id}-count`}
-      bind:value={item.count.value}
-      on:input={updateCount}
-      min="0"
-    />
+    <input type="number" id={`journalItem-${id}-count`} bind:value={item.count.value} on:input={updateCount} min="0" />
   </div>
-</fieldset>
-
-<style>
-  .journalItem {
-    align-items: center;
-  }
-
-  .journalItemName {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--pico-spacing);
-    gap: var(--pico-spacing);
-  }
-
-  .journalItemName img {
-    max-height: 1.5rem;
-    aspect-ratio: 1 / 1;
-  }
-</style>
+</div>
